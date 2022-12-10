@@ -7,7 +7,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol';
 
 /// @title APPNAME
-/// @notice This contract handles the token management and battle logic for the APPNAME game
+/// @notice This contract handles the token management and Showdown logic for the APPNAME game
 /// @notice Version 1.0.0
 
 contract APPNAME is ERC1155, Ownable, ERC1155Supply {
@@ -22,42 +22,42 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
 
   uint256 public constant MAX_ATTACK_DEFEND_STRENGTH = 10;
 
-  enum BattleStatus{ PENDING, STARTED, ENDED }
+  enum ShowdownStatus{ PENDING, STARTED, ENDED }
 
   /// @dev GameToken struct to store player token info
   struct GameToken {
-    string name; /// @param name battle card name; set by player
-    uint256 id; /// @param id battle card token id; will be randomly generated
-    uint256 attackStrength; /// @param attackStrength battle card attack; generated randomly
-    uint256 defenseStrength; /// @param defenseStrength battle card defense; generated randomly
+    string name; /// @param name Showdown card name; set by player
+    uint256 id; /// @param id Showdown card token id; will be randomly generated
+    uint256 attackStrength; /// @param attackStrength Showdown card attack; generated randomly
+    uint256 defenseStrength; /// @param defenseStrength Showdown card defense; generated randomly
   }
 
   /// @dev Player struct to store player info
   struct Player {
     address playerAddress; /// @param playerAddress player wallet address
     string playerName; /// @param playerName player name; set by player during registration
-    uint256 playerMana; /// @param playerMana player mana; affected by battle results
-    uint256 playerHealth; /// @param playerHealth player health; affected by battle results
-    bool inBattle; /// @param inBattle boolean to indicate if a player is in battle
+    uint256 playerMana; /// @param playerMana player mana; affected by Showdown results
+    uint256 playerHealth; /// @param playerHealth player health; affected by Showdown results
+    bool inShowdown; /// @param inShowdown boolean to indicate if a player is in Showdown
   }
 
-  /// @dev Battle struct to store battle info
-  struct Battle {
-    BattleStatus battleStatus; /// @param battleStatus enum to indicate battle status
-    bytes32 battleHash; /// @param battleHash a hash of the battle name
-    string name; /// @param name battle name; set by player who creates battle
-    address[2] players; /// @param players address array representing players in this battle
+  /// @dev Showdown struct to store Showdown info
+  struct Showdown {
+    ShowdownStatus ShowdownStatus; /// @param ShowdownStatus enum to indicate Showdown status
+    bytes32 ShowdownHash; /// @param ShowdownHash a hash of the Showdown name
+    string name; /// @param name Showdown name; set by player who creates Showdown
+    address[2] players; /// @param players address array representing players in this Showdown
     uint8[2] moves; /// @param moves uint array representing players' move
     address winner; /// @param winner winner address
   }
 
   mapping(address => uint256) public playerInfo; // Mapping of player addresses to player index in the players array
   mapping(address => uint256) public playerTokenInfo; // Mapping of player addresses to player token index in the gameTokens array
-  mapping(string => uint256) public battleInfo; // Mapping of battle name to battle index in the battles array
+  mapping(string => uint256) public ShowdownInfo; // Mapping of Showdown name to Showdown index in the Showdowns array
 
   Player[] public players; // Array of players
   GameToken[] public gameTokens; // Array of game tokens
-  Battle[] public battles; // Array of battles
+  Showdown[] public Showdowns; // Array of Showdowns
 
   function isPlayer(address addr) public view returns (bool) {
     if(playerInfo[addr] == 0) {
@@ -93,34 +93,34 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
     return gameTokens;
   }
 
-  // Battle getter function
-  function isBattle(string memory _name) public view returns (bool) {
-    if(battleInfo[_name] == 0) {
+  // Showdown getter function
+  function isShowdown(string memory _name) public view returns (bool) {
+    if(ShowdownInfo[_name] == 0) {
       return false;
     } else {
       return true;
     }
   }
 
-  function getBattle(string memory _name) public view returns (Battle memory) {
-    require(isBattle(_name), "Battle doesn't exist!");
-    return battles[battleInfo[_name]];
+  function getShowdown(string memory _name) public view returns (Showdown memory) {
+    require(isShowdown(_name), "Showdown doesn't exist!");
+    return Showdowns[ShowdownInfo[_name]];
   }
 
-  function getAllBattles() public view returns (Battle[] memory) {
-    return battles;
+  function getAllShowdowns() public view returns (Showdown[] memory) {
+    return Showdowns;
   }
 
-  function updateBattle(string memory _name, Battle memory _newBattle) private {
-    require(isBattle(_name), "Battle doesn't exist");
-    battles[battleInfo[_name]] = _newBattle;
+  function updateShowdown(string memory _name, Showdown memory _newShowdown) private {
+    require(isShowdown(_name), "Showdown doesn't exist");
+    Showdowns[ShowdownInfo[_name]] = _newShowdown;
   }
 
   // Events
   event NewPlayer(address indexed owner, string name);
-  event NewBattle(string battleName, address indexed player1, address indexed player2);
-  event BattleEnded(string battleName, address indexed winner, address indexed loser);
-  event BattleMove(string indexed battleName, bool indexed isFirstMove);
+  event NewShowdown(string ShowdownName, address indexed player1, address indexed player2);
+  event ShowdownEnded(string ShowdownName, address indexed winner, address indexed loser);
+  event ShowdownMove(string indexed ShowdownName, bool indexed isFirstMove);
   event NewGameToken(address indexed owner, uint256 id, uint256 attackStrength, uint256 defenseStrength);
   event RoundEnded(address[2] damagedPlayers);
 
@@ -138,7 +138,7 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
   function initialize() private {
     gameTokens.push(GameToken("", 0, 0, 0));
     players.push(Player(address(0), "", 0, 0, false));
-    battles.push(Battle(BattleStatus.PENDING, bytes32(0), "", [address(0), address(0)], [0, 0], address(0)));
+    Showdowns.push(Showdown(ShowdownStatus.PENDING, bytes32(0), "", [address(0), address(0)], [0, 0], address(0)));
   }
 
   /// @dev Registers a player
@@ -155,7 +155,7 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
     emit NewPlayer(msg.sender, _name); // Emits NewPlayer event
   }
 
-  /// @dev internal function to generate random number; used for Battle Card Attack and Defense Strength
+  /// @dev internal function to generate random number; used for Showdown Card Attack and Defense Strength
   function _createRandomNum(uint256 _max, address _sender) internal view returns (uint256 randomValue) {
     uint256 randomNum = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, _sender)));
 
@@ -167,7 +167,7 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
     return randomValue;
   }
 
-  /// @dev internal function to create a new Battle Card
+  /// @dev internal function to create a new Showdown Card
   function _createGameToken(string memory _name) internal returns (GameToken memory) {
     uint256 randAttackStrength = _createRandomNum(MAX_ATTACK_DEFEND_STRENGTH, msg.sender);
     uint256 randDefenseStrength = MAX_ATTACK_DEFEND_STRENGTH - randAttackStrength;
@@ -199,7 +199,7 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
   /// @dev Creates a new game token
   /// @param _name game token name; set by player
   function createRandomGameToken(string memory _name) public {
-    require(!getPlayer(msg.sender).inBattle, "Player is in a battle"); // Require that player is not already in a battle
+    require(!getPlayer(msg.sender).inShowdown, "Player is in a Showdown"); // Require that player is not already in a Showdown
     require(isPlayer(msg.sender), "Please Register Player First"); // Require that the player is registered
     
     _createGameToken(_name); // Creates game token
@@ -209,111 +209,111 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
     return totalSupply;
   }
 
-  /// @dev Creates a new battle
-  /// @param _name battle name; set by player
-  function createBattle(string memory _name) external returns (Battle memory) {
+  /// @dev Creates a new Showdown
+  /// @param _name Showdown name; set by player
+  function createShowdown(string memory _name) external returns (Showdown memory) {
     require(isPlayer(msg.sender), "Please Register Player First"); // Require that the player is registered
-    require(!isBattle(_name), "Battle already exists!"); // Require battle with same name should not exist
+    require(!isShowdown(_name), "Showdown already exists!"); // Require Showdown with same name should not exist
 
-    bytes32 battleHash = keccak256(abi.encode(_name));
+    bytes32 ShowdownHash = keccak256(abi.encode(_name));
     
-    Battle memory _battle = Battle(
-      BattleStatus.PENDING, // Battle pending
-      battleHash, // Battle hash
-      _name, // Battle name
-      [msg.sender, address(0)], // player addresses; player 2 empty until they joins battle
+    Showdown memory _Showdown = Showdown(
+      ShowdownStatus.PENDING, // Showdown pending
+      ShowdownHash, // Showdown hash
+      _name, // Showdown name
+      [msg.sender, address(0)], // player addresses; player 2 empty until they joins Showdown
       [0, 0], // moves for each player
-      address(0) // winner address; empty until battle ends
+      address(0) // winner address; empty until Showdown ends
     );
 
-    uint256 _id = battles.length;
-    battleInfo[_name] = _id;
-    battles.push(_battle);
+    uint256 _id = Showdowns.length;
+    ShowdownInfo[_name] = _id;
+    Showdowns.push(_Showdown);
     
-    return _battle;
+    return _Showdown;
   }
 
-  /// @dev Player joins battle
-  /// @param _name battle name; name of battle player wants to join
-  function joinBattle(string memory _name) external returns (Battle memory) {
-    Battle memory _battle = getBattle(_name);
+  /// @dev Player joins Showdown
+  /// @param _name Showdown name; name of Showdown player wants to join
+  function joinShowdown(string memory _name) external returns (Showdown memory) {
+    Showdown memory _Showdown = getShowdown(_name);
 
-    require(_battle.battleStatus == BattleStatus.PENDING, "Battle already started!"); // Require that battle has not started
-    require(_battle.players[0] != msg.sender, "Only player two can join a battle"); // Require that player 2 is joining the battle
-    require(!getPlayer(msg.sender).inBattle, "Already in battle"); // Require that player is not already in a battle
+    require(_Showdown.ShowdownStatus == ShowdownStatus.PENDING, "Showdown already started!"); // Require that Showdown has not started
+    require(_Showdown.players[0] != msg.sender, "Only player two can join a Showdown"); // Require that player 2 is joining the Showdown
+    require(!getPlayer(msg.sender).inShowdown, "Already in Showdown"); // Require that player is not already in a Showdown
     
-    _battle.battleStatus = BattleStatus.STARTED;
-    _battle.players[1] = msg.sender;
-    updateBattle(_name, _battle);
+    _Showdown.ShowdownStatus = ShowdownStatus.STARTED;
+    _Showdown.players[1] = msg.sender;
+    updateShowdown(_name, _Showdown);
 
-    players[playerInfo[_battle.players[0]]].inBattle = true;
-    players[playerInfo[_battle.players[1]]].inBattle = true;
+    players[playerInfo[_Showdown.players[0]]].inShowdown = true;
+    players[playerInfo[_Showdown.players[1]]].inShowdown = true;
 
-    emit NewBattle(_battle.name, _battle.players[0], msg.sender); // Emits NewBattle event
-    return _battle;
+    emit NewShowdown(_Showdown.name, _Showdown.players[0], msg.sender); // Emits NewShowdown event
+    return _Showdown;
   }
 
-  // Read battle move info for player 1 and player 2
-  function getBattleMoves(string memory _battleName) public view returns (uint256 P1Move, uint256 P2Move) {
-    Battle memory _battle = getBattle(_battleName);
+  // Read Showdown move info for player 1 and player 2
+  function getShowdownMoves(string memory _ShowdownName) public view returns (uint256 P1Move, uint256 P2Move) {
+    Showdown memory _Showdown = getShowdown(_ShowdownName);
 
-    P1Move = _battle.moves[0];
-    P2Move = _battle.moves[1];
+    P1Move = _Showdown.moves[0];
+    P2Move = _Showdown.moves[1];
 
     return (P1Move, P2Move);
   }
 
-  function _registerPlayerMove(uint256 _player, uint8 _choice, string memory _battleName) internal {
+  function _registerPlayerMove(uint256 _player, uint8 _choice, string memory _ShowdownName) internal {
     require(_choice == 1 || _choice == 2, "Choice should be either 1 or 2!");
     require(_choice == 1 ? getPlayer(msg.sender).playerMana >= 3 : true, "Mana not sufficient for attacking!");
-    battles[battleInfo[_battleName]].moves[_player] = _choice;
+    Showdowns[ShowdownInfo[_ShowdownName]].moves[_player] = _choice;
   }
 
-  // User chooses attack or defense move for battle card
-  function attackOrDefendChoice(uint8 _choice, string memory _battleName) external {
-    Battle memory _battle = getBattle(_battleName);
+  // User chooses attack or defense move for Showdown card
+  function attackOrDefendChoice(uint8 _choice, string memory _ShowdownName) external {
+    Showdown memory _Showdown = getShowdown(_ShowdownName);
 
     require(
-        _battle.battleStatus == BattleStatus.STARTED,
-        "Battle not started. Please tell another player to join the battle"
-    ); // Require that battle has started
+        _Showdown.ShowdownStatus == ShowdownStatus.STARTED,
+        "Showdown not started. Please tell another player to join the Showdown"
+    ); // Require that Showdown has started
     require(
-        _battle.battleStatus != BattleStatus.ENDED,
-        "Battle has already ended"
-    ); // Require that battle has not ended
+        _Showdown.ShowdownStatus != ShowdownStatus.ENDED,
+        "Showdown has already ended"
+    ); // Require that Showdown has not ended
     require(
-      msg.sender == _battle.players[0] || msg.sender == _battle.players[1],
-      "You are not in this battle"
-    ); // Require that player is in the battle
+      msg.sender == _Showdown.players[0] || msg.sender == _Showdown.players[1],
+      "You are not in this Showdown"
+    ); // Require that player is in the Showdown
 
-    require(_battle.moves[_battle.players[0] == msg.sender ? 0 : 1] == 0, "You have already made a move!");
+    require(_Showdown.moves[_Showdown.players[0] == msg.sender ? 0 : 1] == 0, "You have already made a move!");
 
-    _registerPlayerMove(_battle.players[0] == msg.sender ? 0 : 1, _choice, _battleName);
+    _registerPlayerMove(_Showdown.players[0] == msg.sender ? 0 : 1, _choice, _ShowdownName);
 
-    _battle = getBattle(_battleName);
-    uint _movesLeft = 2 - (_battle.moves[0] == 0 ? 0 : 1) - (_battle.moves[1] == 0 ? 0 : 1);
-    emit BattleMove(_battleName, _movesLeft == 1 ? true : false);
+    _Showdown = getShowdown(_ShowdownName);
+    uint _movesLeft = 2 - (_Showdown.moves[0] == 0 ? 0 : 1) - (_Showdown.moves[1] == 0 ? 0 : 1);
+    emit ShowdownMove(_ShowdownName, _movesLeft == 1 ? true : false);
     
     if(_movesLeft == 0) {
-      _awaitBattleResults(_battleName);
+      _awaitShowdownResults(_ShowdownName);
     }
   }
 
-  // Awaits battle results
-  function _awaitBattleResults(string memory _battleName) internal {
-    Battle memory _battle = getBattle(_battleName);
+  // Awaits Showdown results
+  function _awaitShowdownResults(string memory _ShowdownName) internal {
+    Showdown memory _Showdown = getShowdown(_ShowdownName);
 
     require(
-      msg.sender == _battle.players[0] || msg.sender == _battle.players[1],
-      "Only players in this battle can make a move"
+      msg.sender == _Showdown.players[0] || msg.sender == _Showdown.players[1],
+      "Only players in this Showdown can make a move"
     );
 
     require(
-      _battle.moves[0] != 0 &&  _battle.moves[1] != 0,
+      _Showdown.moves[0] != 0 &&  _Showdown.moves[1] != 0,
       "Players still need to make a move"
     );
 
-    _resolveBattle(_battle);
+    _resolveShowdown(_Showdown);
   }
 
   struct P {
@@ -324,32 +324,32 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
     uint defense;
   }
 
-  /// @dev Resolve battle function to determine winner and loser of battle
-  /// @param _battle battle; battle to resolve
-  function _resolveBattle(Battle memory _battle) internal {
+  /// @dev Resolve Showdown function to determine winner and loser of Showdown
+  /// @param _Showdown Showdown; Showdown to resolve
+  function _resolveShowdown(Showdown memory _Showdown) internal {
     P memory p1 = P(
-        playerInfo[_battle.players[0]],
-        _battle.moves[0],
-        getPlayer(_battle.players[0]).playerHealth,
-        getPlayerToken(_battle.players[0]).attackStrength,
-        getPlayerToken(_battle.players[0]).defenseStrength
+        playerInfo[_Showdown.players[0]],
+        _Showdown.moves[0],
+        getPlayer(_Showdown.players[0]).playerHealth,
+        getPlayerToken(_Showdown.players[0]).attackStrength,
+        getPlayerToken(_Showdown.players[0]).defenseStrength
     );
 
     P memory p2 = P(
-        playerInfo[_battle.players[1]],
-        _battle.moves[1],
-        getPlayer(_battle.players[1]).playerHealth,
-        getPlayerToken(_battle.players[1]).attackStrength,
-        getPlayerToken(_battle.players[1]).defenseStrength
+        playerInfo[_Showdown.players[1]],
+        _Showdown.moves[1],
+        getPlayer(_Showdown.players[1]).playerHealth,
+        getPlayerToken(_Showdown.players[1]).attackStrength,
+        getPlayerToken(_Showdown.players[1]).defenseStrength
     );
 
     address[2] memory _damagedPlayers = [address(0), address(0)];
     
     if (p1.move == 1 && p2.move == 1) {
       if (p1.attack >= p2.health) {
-        _endBattle(_battle.players[0], _battle);
+        _endShowdown(_Showdown.players[0], _Showdown);
       } else if (p2.attack >= p1.health) {
-        _endBattle(_battle.players[1], _battle);
+        _endShowdown(_Showdown.players[1], _Showdown);
       } else {
         players[p1.index].playerHealth -= p2.attack;
         players[p2.index].playerHealth -= p1.attack;
@@ -358,12 +358,12 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
         players[p2.index].playerMana -= 3;
 
         // Both player's health damaged
-        _damagedPlayers = _battle.players;
+        _damagedPlayers = _Showdown.players;
       }
     } else if (p1.move == 1 && p2.move == 2) {
       uint256 PHAD = p2.health + p2.defense;
       if (p1.attack >= PHAD) {
-        _endBattle(_battle.players[0], _battle);
+        _endShowdown(_Showdown.players[0], _Showdown);
       } else {
         uint256 healthAfterAttack;
         
@@ -373,7 +373,7 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
           healthAfterAttack = PHAD - p1.attack;
 
           // Player 2 health damaged
-          _damagedPlayers[0] = _battle.players[1];
+          _damagedPlayers[0] = _Showdown.players[1];
         }
 
         players[p2.index].playerHealth = healthAfterAttack;
@@ -384,7 +384,7 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
     } else if (p1.move == 2 && p2.move == 1) {
       uint256 PHAD = p1.health + p1.defense;
       if (p2.attack >= PHAD) {
-        _endBattle(_battle.players[1], _battle);
+        _endShowdown(_Showdown.players[1], _Showdown);
       } else {
         uint256 healthAfterAttack;
         
@@ -394,7 +394,7 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
           healthAfterAttack = PHAD - p2.attack;
 
           // Player 1 health damaged
-          _damagedPlayers[0] = _battle.players[0];
+          _damagedPlayers[0] = _Showdown.players[0];
         }
 
         players[p1.index].playerHealth = healthAfterAttack;
@@ -412,53 +412,53 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
     );
 
     // Reset moves to 0
-    _battle.moves[0] = 0;
-    _battle.moves[1] = 0;
-    updateBattle(_battle.name, _battle);
+    _Showdown.moves[0] = 0;
+    _Showdown.moves[1] = 0;
+    updateShowdown(_Showdown.name, _Showdown);
 
     // Reset random attack and defense strength
-    uint256 _randomAttackStrengthPlayer1 = _createRandomNum(MAX_ATTACK_DEFEND_STRENGTH, _battle.players[0]);
-    gameTokens[playerTokenInfo[_battle.players[0]]].attackStrength = _randomAttackStrengthPlayer1;
-    gameTokens[playerTokenInfo[_battle.players[0]]].defenseStrength = MAX_ATTACK_DEFEND_STRENGTH - _randomAttackStrengthPlayer1;
+    uint256 _randomAttackStrengthPlayer1 = _createRandomNum(MAX_ATTACK_DEFEND_STRENGTH, _Showdown.players[0]);
+    gameTokens[playerTokenInfo[_Showdown.players[0]]].attackStrength = _randomAttackStrengthPlayer1;
+    gameTokens[playerTokenInfo[_Showdown.players[0]]].defenseStrength = MAX_ATTACK_DEFEND_STRENGTH - _randomAttackStrengthPlayer1;
 
-    uint256 _randomAttackStrengthPlayer2 = _createRandomNum(MAX_ATTACK_DEFEND_STRENGTH, _battle.players[1]);
-    gameTokens[playerTokenInfo[_battle.players[1]]].attackStrength = _randomAttackStrengthPlayer2;
-    gameTokens[playerTokenInfo[_battle.players[1]]].defenseStrength = MAX_ATTACK_DEFEND_STRENGTH - _randomAttackStrengthPlayer2;   
+    uint256 _randomAttackStrengthPlayer2 = _createRandomNum(MAX_ATTACK_DEFEND_STRENGTH, _Showdown.players[1]);
+    gameTokens[playerTokenInfo[_Showdown.players[1]]].attackStrength = _randomAttackStrengthPlayer2;
+    gameTokens[playerTokenInfo[_Showdown.players[1]]].defenseStrength = MAX_ATTACK_DEFEND_STRENGTH - _randomAttackStrengthPlayer2;   
   }
 
-  function quitBattle(string memory _battleName) public {
-    Battle memory _battle = getBattle(_battleName);
-    require(_battle.players[0] == msg.sender || _battle.players[1] == msg.sender, "You are not in this battle!");
+  function quitShowdown(string memory _ShowdownName) public {
+    Showdown memory _Showdown = getShowdown(_ShowdownName);
+    require(_Showdown.players[0] == msg.sender || _Showdown.players[1] == msg.sender, "You are not in this Showdown!");
 
-    _battle.players[0] == msg.sender ? _endBattle(_battle.players[1], _battle) : _endBattle(_battle.players[0], _battle);
+    _Showdown.players[0] == msg.sender ? _endShowdown(_Showdown.players[1], _Showdown) : _endShowdown(_Showdown.players[0], _Showdown);
   }
 
-  /// @dev internal function to end the battle
-  /// @param battleEnder winner address
-  /// @param _battle battle; taken from attackOrDefend function
-  function _endBattle(address battleEnder, Battle memory _battle) internal returns (Battle memory) {
-    require(_battle.battleStatus != BattleStatus.ENDED, "Battle already ended"); // Require that battle has not ended
+  /// @dev internal function to end the Showdown
+  /// @param ShowdownEnder winner address
+  /// @param _Showdown Showdown; taken from attackOrDefend function
+  function _endShowdown(address ShowdownEnder, Showdown memory _Showdown) internal returns (Showdown memory) {
+    require(_Showdown.ShowdownStatus != ShowdownStatus.ENDED, "Showdown already ended"); // Require that Showdown has not ended
 
-    _battle.battleStatus = BattleStatus.ENDED;
-    _battle.winner = battleEnder;
-    updateBattle(_battle.name, _battle);
+    _Showdown.ShowdownStatus = ShowdownStatus.ENDED;
+    _Showdown.winner = ShowdownEnder;
+    updateShowdown(_Showdown.name, _Showdown);
 
-    uint p1 = playerInfo[_battle.players[0]];
-    uint p2 = playerInfo[_battle.players[1]];
+    uint p1 = playerInfo[_Showdown.players[0]];
+    uint p2 = playerInfo[_Showdown.players[1]];
 
-    players[p1].inBattle = false;
+    players[p1].inShowdown = false;
     players[p1].playerHealth = 25;
     players[p1].playerMana = 10;
 
-    players[p2].inBattle = false;
+    players[p2].inShowdown = false;
     players[p2].playerHealth = 25;
     players[p2].playerMana = 10;
 
-    address _battleLoser = battleEnder == _battle.players[0] ? _battle.players[1] : _battle.players[0];
+    address _ShowdownLoser = ShowdownEnder == _Showdown.players[0] ? _Showdown.players[1] : _Showdown.players[0];
 
-    emit BattleEnded(_battle.name, battleEnder, _battleLoser); // Emits BattleEnded event
+    emit ShowdownEnded(_Showdown.name, ShowdownEnder, _ShowdownLoser); // Emits ShowdownEnded event
 
-    return _battle;
+    return _Showdown;
   }
 
   // Turns uint256 into string
