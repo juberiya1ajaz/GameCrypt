@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import HeroImg from '../assets/hero.svg'
 import FeatImg from '../assets/feat.svg'
 import { useGlobalContext } from '../context';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
 
@@ -39,16 +40,19 @@ export default function Home() {
           <h1 className='text-3xl md:text-6xl'>Who we are</h1>
           <p className='text-xl md:text-2xl py-4 tracking-wider'>About the web app.</p>
 
-          <div className="flex flex-row items-center space-x-2 py-2">
+          {/* <div className="flex flex-row items-center space-x-2 py-2">
             <label htmlFor="name" className="font-semibold text-xl text-white mb-3">Name</label>
             <input type="text" placeholder="Enter your player name" value={playerName} onChange={(e) => {
               if (e.target.value === '' || regex.test(e.target.value)) setPlayerName(e.target.value);
             }} className="bg-gray-700 text-white outline-none focus:outline-siteViolet px-4 py-2 mb-1 rounded-md max-w-full"
             />
-          </div>
+          </div> */}
 
-          <button type="button" className="bg-secondary py-2 px-8 rounded-md text-xl md:text-2xl" onClick={handleClick}>Register</button>
-
+          {/* <button type="button" className="bg-secondary py-2 px-8 rounded-md text-xl md:text-2xl" onClick={handleClick}>Register</button> */}
+        <Link to="/createShowdown">
+          <button type="button" className="bg-secondary py-2 px-8 rounded-md text-xl md:text-2xl">Register</button>
+        </Link>
+        
         </div>
         <div className="grid place-items-center py-4 drop-shadow-3xl shadow-black">
           <img src={HeroImg} alt="img" width="250" height="250" />
