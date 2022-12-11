@@ -500,3 +500,23 @@ contract GameCrypt is ERC1155, Ownable, ERC1155Supply {
     super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
   }
 }
+
+
+
+// Implementing Azure Blockchain Service
+
+contract AzureBlockchainStorage {
+    uint storedData;
+
+    constructor() public {
+        storedData = 7;
+    }
+
+    function get() public view returns (uint) {
+        return storedData;
+    }
+
+    function set(uint value) public {
+        storedData = value;
+    }
+}

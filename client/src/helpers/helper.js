@@ -13,6 +13,7 @@ let saveData = {
 };
 let accountId = ""
 
+// Hedera implementation
 export async function nft() {
 
   const provider = hashconnect.getProvider('testnet', saveData.topic,  accountId)
