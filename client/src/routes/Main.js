@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from '../components/Navbar';
 import Home from '../pages/Home';
-import CreateShowdown from '../pages/CreateShowdown';
+import EnterShowdown from '../pages/EnterShowdown';
 import MyNFT from '../pages/MyNFT';
 import { GlobalContextProvider } from '../context/index';
 
@@ -12,7 +12,7 @@ function Main() {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/createShowdown" element={<CreateShowdown />} />
+                    <Route path="/enterShowdown" element={<EnterShowdown />} />
                     <Route path="/myNFT" element={<MyNFT />} />
                 </Routes>
             </GlobalContextProvider>

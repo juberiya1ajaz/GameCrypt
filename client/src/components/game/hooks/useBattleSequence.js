@@ -1,17 +1,14 @@
-// import {
-//     wait,
-//     magic,
-//     heal,
-//     attack,
-//     playerStats,
-//     opponentStats,
-//   } from 'shared';
-
-import { wait, magic, heal, attack } from "../helpers/helper"
-import { playerStats, opponentStats } from "../helpers/player"
+import {
+  wait,
+  magic,
+  heal,
+  attack,
+  playerStats,
+  opponentStats,
+} from '../shared';
 import { useEffect, useState } from 'react';
 
-export const useShowdownSequence = sequence => {
+export const useBattleSequence = sequence => {
   const [turn, setTurn] = useState(0);
   const [inSequence, setInSequence] = useState(false);
 
@@ -140,15 +137,15 @@ export const useShowdownSequence = sequence => {
             setAnnouncerMessage(`${attacker.name} has recovered health.`);
             turn === 0
               ? setPlayerHealth(h =>
-                h + recovered <= attacker.maxHealth
-                  ? h + recovered
-                  : attacker.maxHealth,
-              )
+                  h + recovered <= attacker.maxHealth
+                    ? h + recovered
+                    : attacker.maxHealth,
+                )
               : setOpponentHealth(h =>
-                h + recovered <= attacker.maxHealth
-                  ? h + recovered
-                  : attacker.maxHealth,
-              ); // We don't want to set HP more than the max
+                  h + recovered <= attacker.maxHealth
+                    ? h + recovered
+                    : attacker.maxHealth,
+                ); // We don't want to set HP more than the max
             await wait(2500);
 
             setAnnouncerMessage(`Now it's ${receiver.name}'s turn!`);

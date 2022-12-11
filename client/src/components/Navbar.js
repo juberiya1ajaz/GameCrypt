@@ -44,8 +44,8 @@ export default function Navbar() {
                                             <span className="lg:inline-flex px-3 mx-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">Home</span>
                                         </Link>
 
-                                        <Link to="/createShowdown">
-                                            <span className="lg:inline-flex px-3 mx-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">Create Showdown</span>
+                                        <Link to="/enterShowdown">
+                                            <span className="lg:inline-flex px-3 mx-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">Enter Showdown</span>
                                         </Link>
 
                                         <Link to="/myNFT">
@@ -68,8 +68,8 @@ export default function Navbar() {
                             <span className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">Home</span>
                         </Link>
 
-                        <Link to="/createShowdown">
-                            <span className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">Create Showdown</span>
+                        <Link to="/enterShowdown">
+                            <span className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">Enter Showdown</span>
                         </Link>
 
                         <Link to="/myNFT">

@@ -7,30 +7,30 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
 
-  const regex = /^[A-Za-z0-9]+$/;
-  const { contract, walletAddress, gameData, setShowAlert, setErrorMessage, showAlert } = useGlobalContext();
-  const [playerName, setPlayerName] = useState('');
-  const navigate = useNavigate();
+  // const regex = /^[A-Za-z0-9]+$/;
+  // const { contract, walletAddress, gameData, setShowAlert, setErrorMessage, showAlert } = useGlobalContext();
+  // const [playerName, setPlayerName] = useState('');
+  // const navigate = useNavigate();
 
-  const handleClick = async () => {
-    try {
-      const playerExists = await contract.isPlayer(walletAddress);
+  // const handleClick = async () => {
+  //   try {
+  //     const playerExists = await contract.isPlayer(walletAddress);
 
-      if (!playerExists) {
-        await contract.registerPlayer(playerName, playerName, { gasLimit: 500000 });
+  //     if (!playerExists) {
+  //       await contract.registerPlayer(playerName, playerName, { gasLimit: 500000 });
 
-        setShowAlert({
-          status: true,
-          type: 'info',
-          message: `${playerName} is being summoned!`,
-        });
+  //       setShowAlert({
+  //         status: true,
+  //         type: 'info',
+  //         message: `${playerName} is being summoned!`,
+  //       });
 
-        setTimeout(() => navigate('/createShowdown'), 8000);
-      }
-    } catch (error) {
-      setErrorMessage(error);
-    }
-  };
+  //       setTimeout(() => navigate('/createShowdown'), 8000);
+  //     }
+  //   } catch (error) {
+  //     setErrorMessage(error);
+  //   }
+  // };
 
   return (
     <div className='md:mx-28 mx-4 text-white py-8'>
@@ -49,8 +49,8 @@ export default function Home() {
           </div> */}
 
           {/* <button type="button" className="bg-secondary py-2 px-8 rounded-md text-xl md:text-2xl" onClick={handleClick}>Register</button> */}
-        <Link to="/createShowdown">
-          <button type="button" className="bg-secondary py-2 px-8 rounded-md text-xl md:text-2xl">Register</button>
+        <Link to="/enterShowdown">
+          <button type="button" className="bg-secondary py-2 px-8 rounded-md text-xl md:text-2xl">Enter Showdown</button>
         </Link>
         
         </div>

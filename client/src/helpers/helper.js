@@ -1,3 +1,34 @@
+import { ContractId, ContractExecuteTransaction } from "@hashgraph/sdk";
+import {HashConnect} from 'hashconnect';
+
+let contractId = ContractId.fromString("0.0.47907889");
+let hashconnect = new HashConnect();
+
+let saveData = {
+  topic: "",
+  pairingString: "",
+  privateKey: "",
+  pairedWalletData: null,
+  pairedAccounts: [],
+};
+let accountId = ""
+
+export async function nft() {
+
+  const provider = hashconnect.getProvider('testnet', saveData.topic,  accountId)
+  const signer = hashconnect.getSigner(provider)
+  const stakeTx  = await new ContractExecuteTransaction() 
+      .setContractId(contractId)
+      .setGas(500000)
+      .setPayableAmount(50)
+      .setFunction("stakeTokens")
+      .freezeWithSigner(signer);
+
+  const result = await stakeTx.executeWithSigner(signer);
+  console.log(result)
+
+}
+
 export const wait = ms =>
   new Promise(resolve => {
     setTimeout(() => {
