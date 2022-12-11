@@ -1,10 +1,17 @@
 # GameCrypt
 
 ## 💡 Inspiration
+A recent poll by NortonLifeLock of gamers shows that 47% of them have experienced a cyberattack to break into their gaming account or device. Three in four of those affected endured financial losses. The survey conducted by the Harris Poll shows that, on average, gamers lose $744.The inclination to cut corners proves damaging for some as scammers are aware of gamers’ desire to win at all costs. Threat actors trick gamers into clicking phishing links or downloading malware under the promise of a secret cheat code. If the scam works, gamers might lose their gaming profile, digital assets, or personal information.
+
+To solve this issue our team brainstormed and came up with the idea of gamification with the help of blockchain. We have built a blockchain-based pokemon game where users can connect their wallets and enter the showdown. They can also earn some NFTs after winning the game and then they can also sell their NFTs.
 
 ## 💻 What it does
 
 Our web app **GameCrypt** is built with the following features:
+- A blockchain based Pokémon game.
+- Connect your wallet and enter the showdown.
+- Win the showdown to earn some NFTs.
+- Collect and resell you NFTs.
 
 ## ⚙️ How we built it
 
@@ -37,3 +44,4 @@ We are deploying our smart contracts on **Hedera's testnet**. Hedera is a decent
 
 - Building a mobile app.
 - Deploying the web app.
+- Adding more features.
