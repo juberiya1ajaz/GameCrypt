@@ -1,10 +1,10 @@
-# CRYPTOAD
+# GameCrypt
 
 ## 💡 Inspiration
 
 ## 💻 What it does
 
-Our web app **CRYPTOAD** is built with the following features:
+Our web app **GameCrypt** is built with the following features:
 
 ## ⚙️ How we built it
 
@@ -33,7 +33,7 @@ We are deploying our smart contracts on **Hedera's testnet**. Hedera is a decent
 - Problems faced by Gamers.
 - Using Hedera
 
-## 🚀 What's next for CRYPTOAD
+## 🚀 What's next for GameCrypt
 
 - Building a mobile app.
 - Deploying the web app.
