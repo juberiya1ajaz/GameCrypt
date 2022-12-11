@@ -24,6 +24,8 @@ We are deploying our smart contracts on **Hedera's testnet**. Hedera is a decent
 ## 🏅 Accomplishments that we're proud of
 
 - We are proud of the fact that we were able to complete the project in the given time.
+- Brainstorming: It took us a long time to develop a website that had a real societal influence.
+- Utilizing the backend, we got it all to work in the end.
 
 ## 📖 What we learned
 - Gamification.
