@@ -1,13 +1,4 @@
-// import {
-//     wait,
-//     magic,
-//     heal,
-//     attack,
-//     playerStats,
-//     opponentStats,
-//   } from 'shared';
-
-import { wait, magic, heal, attack } from "../helpers/helper"
+import { wait, heal, attack } from "../helpers/helper"
 import { playerStats, opponentStats } from "../helpers/player"
 import { useEffect, useState } from 'react';
 
@@ -75,61 +66,12 @@ export const useShowdownSequence = sequence => {
           break;
         }
 
-        case 'magic': {
-          const damage = magic({ attacker, receiver });
-
-          (async () => {
-            setInSequence(true);
-            setAnnouncerMessage(`${attacker.name} has cast a spell!`);
-            await wait(1000);
-
-            turn === 0
-              ? setPlayerAnimation('magic')
-              : setOpponentAnimation('magic');
-            await wait(1000);
-
-            turn === 0
-              ? setPlayerAnimation('static')
-              : setOpponentAnimation('static');
-            await wait(500);
-
-            turn === 0
-              ? setOpponentAnimation('damage')
-              : setPlayerAnimation('damage');
-            await wait(750);
-
-            turn === 0
-              ? setOpponentAnimation('static')
-              : setPlayerAnimation('static');
-            setAnnouncerMessage(
-              `${receiver.name} doesn't know what hit them!`,
-            );
-            turn === 0
-              ? setOpponentHealth(h => (h - damage > 0 ? h - damage : 0))
-              : setPlayerHealth(h => (h - damage > 0 ? h - damage : 0)); // We don't want a negative HP.
-            await wait(2500);
-
-            setAnnouncerMessage(`Now it's ${receiver.name}'s turn!`);
-            await wait(1500);
-
-            setTurn(turn === 0 ? 1 : 0);
-            setInSequence(false);
-          })();
-
-          break;
-        }
-
         case 'heal': {
           const recovered = heal({ receiver: attacker });
 
           (async () => {
             setInSequence(true);
             setAnnouncerMessage(`${attacker.name} has chosen to heal!`);
-            await wait(1000);
-
-            turn === 0
-              ? setPlayerAnimation('magic')
-              : setOpponentAnimation('magic');
             await wait(1000);
 
             turn === 0

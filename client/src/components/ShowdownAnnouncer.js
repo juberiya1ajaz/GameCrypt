@@ -1,4 +1,3 @@
-// import { useTypedMessage } from 'hooks';
 import {useTypedMessage} from '../hooks/useTypedMessage';
 
 export const ShowdownAnnouncer = ({ message }) => {

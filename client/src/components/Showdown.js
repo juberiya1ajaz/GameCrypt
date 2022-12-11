@@ -1,8 +1,4 @@
 import { useEffect, useState } from 'react';
-// import { useAIOpponent, useBattleSequence } from 'hooks';
-// import { opponentStats, playerStats, wait } from 'shared';
-// import { BattleMenu, PlayerSummary, BattleAnnouncer } from '../index';
-
 import { PlayWithComputer } from "../hooks/playWithComputer"
 import { useShowdownSequence } from "../hooks/useShowdownSequence"
 import { wait } from "../helpers/helper"
@@ -19,8 +15,6 @@ export const Showdown = ({ onGameEnd }) => {
         inSequence,
         playerHealth,
         opponentHealth,
-        playerAnimation,
-        opponentAnimation,
         announcerMessage,
     } = useShowdownSequence(sequence);
 
@@ -100,7 +94,6 @@ export const Showdown = ({ onGameEnd }) => {
                         <div className="h-48">
                             <ShowdownMenue
                                 onHeal={() => setSequence({ mode: 'heal', turn })}
-                                onMagic={() => setSequence({ mode: 'magic', turn })}
                                 onAttack={() => setSequence({ mode: 'attack', turn })}
                             />
                         </div>

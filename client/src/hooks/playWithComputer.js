@@ -5,7 +5,7 @@ export const PlayWithComputer = turn => {
 
   useEffect(() => {
     if (turn === 1) {
-      const options = ['attack', 'magic', 'heal'];
+      const options = ['attack', 'heal'];
       setAIChoice(options[Math.floor(Math.random() * options.length)]);
     }
   }, [turn]);
