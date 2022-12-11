@@ -19,7 +19,7 @@ export default function Navbar() {
                         <div className=" flex overflow-x-hidden mx-4 md:mx-8 h-screen overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none md:hidden"
                         >
                             <div className="relative my-6 mx-auto w-screen">
-                                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-secondary outline-none focus:outline-none">
+                                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-purple-400 outline-none focus:outline-none">
                                     <div className="flex items-start justify-between p-5 border-solid rounded-t">
                                         <Link activeClass="active" to="about" spy={true} smooth={true} offset={-150} duration={250}>
                                             <div className="text-2xl font-base tracking-wide cursor-pointer">
@@ -41,15 +41,15 @@ export default function Navbar() {
                                     >
 
                                         <Link to="/">
-                                            <span className="lg:inline-flex px-3 mx-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">Home</span>
+                                            <span className="lg:inline-flex px-3 mx-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-purple-400 cursor-pointer text-white">Home</span>
                                         </Link>
 
                                         <Link to="/enterShowdown">
-                                            <span className="lg:inline-flex px-3 mx-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">Enter Showdown</span>
+                                            <span className="lg:inline-flex px-3 mx-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-purple-400 cursor-pointer text-white">Enter Showdown</span>
                                         </Link>
 
                                         <Link to="/myNFT">
-                                            <span className="lg:inline-flex px-3 mx-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">My NFTs</span>
+                                            <span className="lg:inline-flex px-3 mx-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-purple-400 cursor-pointer text-white">My NFTs</span>
                                         </Link>
 
                                     </div>
@@ -65,15 +65,15 @@ export default function Navbar() {
                     <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full text-xl lg:items-center items-start flex flex-col lg:h-auto space-x-2 mr-12" >
 
                         <Link to="/">
-                            <span className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">Home</span>
+                            <span className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-purple-400 cursor-pointer text-white">Home</span>
                         </Link>
 
                         <Link to="/enterShowdown">
-                            <span className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">Enter Showdown</span>
+                            <span className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-purple-400 cursor-pointer text-white">Enter Showdown</span>
                         </Link>
 
                         <Link to="/myNFT">
-                            <span className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-secondary cursor-pointer text-white">My NFTs</span>
+                            <span className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded items-center justify-center dark:hover:bg-navHover hover:bg-purple-400 cursor-pointer text-white">My NFTs</span>
                         </Link>
 
                     </div>

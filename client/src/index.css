@@ -10,5 +10,9 @@
 }
 
 body {
-  background-color: #1B2431;
+  background-color: #15181b;
+}
+#card{
+  border-image-source: linear-gradient(270deg, #126A68 -4.27%, #612779 34.63%, #C45081 68.03%, #FF8983 103.56%);
+  border-image-slice: 1;
 }

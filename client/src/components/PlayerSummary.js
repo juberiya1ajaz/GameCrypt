@@ -16,7 +16,7 @@ export const PlayerSummary = ({
   >
     <div className="flex justify-between">
       <div className="text-3xl">{name}</div>
-      <div className="text-3xl">Lvl {level}</div>
+      <div className="text-3xl">Level {level}</div>
     </div>
 
     <div className="bg-red-500">
