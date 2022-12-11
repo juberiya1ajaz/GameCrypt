@@ -53,7 +53,7 @@ export const useShowdownSequence = sequence => {
             setAnnouncerMessage(`${receiver.name} felt that!`);
             turn === 0
               ? setOpponentHealth(h => (h - damage > 0 ? h - damage : 0))
-              : setPlayerHealth(h => (h - damage > 0 ? h - damage : 0)); // We don't want a negative HP.
+              : setPlayerHealth(h => (h - damage > 0 ? h - damage : 0));
             await wait(2000);
 
             setAnnouncerMessage(`Now it's ${receiver.name} turn!`);
@@ -90,7 +90,7 @@ export const useShowdownSequence = sequence => {
                 h + recovered <= attacker.maxHealth
                   ? h + recovered
                   : attacker.maxHealth,
-              ); // We don't want to set HP more than the max
+              );
             await wait(2500);
 
             setAnnouncerMessage(`Now it's ${receiver.name}'s turn!`);

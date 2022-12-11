@@ -1,4 +1,4 @@
-export const EndMenue = () => {
+export const EndMenue = ({ winner, onStartClick }) => {
   return (
     <div className="h-screen flex flex-col justify-center">
       <h1>{winner.name} has won!</h1>

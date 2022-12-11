@@ -13,18 +13,18 @@ const AddNewEvent = (eventFilter, provider, cb) => {
 };
 
 export const eventListner = () => {
-    // const NewPlayerEventFilter = contract.filters.NewPlayer();
-    // AddNewEvent(NewPlayerEventFilter, provider, ({ args }) => {
-    //   console.log('New player created!', args);
+    const NewPlayerEventFilter = contract.filters.NewPlayer();
+    AddNewEvent(NewPlayerEventFilter, provider, ({ args }) => {
+      console.log('New player created!', args);
   
-    //   if (walletAddress === args.owner) {
-    //     setShowAlert({
-    //       status: true,
-    //       type: 'success',
-    //       message: 'Player has been successfully registered',
-    //     });
-    //   }
-    // });
+      if (walletAddress === args.owner) {
+        setShowAlert({
+          status: true,
+          type: 'success',
+          message: 'Player has been successfully registered',
+        });
+      }
+    });
   
   };
   

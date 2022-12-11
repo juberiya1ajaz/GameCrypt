@@ -1,4 +1,3 @@
-// import { wait } from 'shared';
 import { wait } from "../helpers/helper"
 import { useEffect, useState } from 'react';
 
