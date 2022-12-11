@@ -38,7 +38,7 @@ export default function Home() {
       <div className='md:grid md:grid-cols-2 items-center'>
         <div className='bg-red-400 p-14 border-2 border-r-8 border-t-8 rounded-xl border-white' >
           <h1 className='text-3xl font-bold md:text-6xl'>Who we are</h1>
-          <p className='text-xl md:text-2xl font-semibold py-4 tracking-wider'>About the web app.</p>
+          <p className='text-xl font-semibold py-4 tracking-wider'>A recent poll by NortonLifeLock of gamers shows that 47% of them have experienced a cyberattack to break into their gaming account or device. Threat actors trick gamers into clicking phishing links or downloading malware under the promise of a secret cheat code. If the scam works, gamers might lose their gaming profile, digital assets, or personal information. To solve this issue our team brainstormed and came up with the idea of gamification with the help of blockchain.</p>
 
           {/* <div className="flex flex-row items-center space-x-2 py-2">
             <label htmlFor="name" className="font-semibold text-xl text-white mb-3">Name</label>
@@ -57,7 +57,7 @@ export default function Home() {
         
         </div>
         <div className="grid place-items-center py-4 drop-shadow-3xl shadow-black">
-          <img src={HeroImg} alt="img" width="250" height="250" />
+          <img src={HeroImg} alt="img" width="350" height="350" />
         </div>
       </div>
 
@@ -66,7 +66,7 @@ export default function Home() {
           <img src={FeatImg} alt="img" width="350" height="350" />
         </div>
         <div className='bg-yellow-300 p-14 border-2 border-r-8 border-t-8 rounded-xl border-white'>
-          <h1 className='text-5xl'>What else do we have</h1>
+          <h1 className='text-4xl'>What else do we have</h1>
           <p className='text-xl py-4 tracking-wider'>GameCrypt is a web app where you can:
           </p>
           <ul className="text-xl">
