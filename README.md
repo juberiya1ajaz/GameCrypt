@@ -24,6 +24,10 @@ Our web app **GameCrypt** is built with the following features:
 
 We are deploying our smart contracts on **Hedera's testnet**. Hedera is a decentralised public network that use the Hashgraph consensus algorithm to get around the blockchain's conventional restrictions and usher in the era of quick, equitable, and secure applications.
 
+## ☁️ Best Use of Microsoft Cloud for Your Community
+
+We are using **Azure Blockchain Service** to operate blockchain networks. Azure Blockchain Service is a fully managed service that makes it easy to create and manage blockchain networks. It provides a single, consistent management experience for both consortium and public blockchain networks. We are using Azure Blockchain Service as it is built on the open source Hyperledger Fabric and Ethereum protocols which are very useful for our project.
+
 ## 🧠 Challenges we ran into
 
 - Completing the project was challenging because we had to implement the project by a deadline.

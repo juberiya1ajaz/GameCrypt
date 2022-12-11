@@ -9,6 +9,12 @@ async function deploy(name: string, ...params: [string]) {
   return await contractFactory.deploy(...params).then((f) => f.deployed());
 }
 
+const AzureBlockchainStorage = artifacts.require('AzureBlockchainStorage');
+
+module.exports = (deployer) => {
+    deployer.deploy(AzureBlockchainStorage);
+};
+
 async function main() {
   const [admin] = await ethers.getSigners();
   
