@@ -68,7 +68,10 @@ export default function Home() {
           <p className='text-xl py-4 tracking-wider'>GameCrypt is a web app where you can:
           </p>
           <ul className="text-xl">
-            <li className="list-disc"></li>
+            <li className="list-disc">Collect and resell you NFTs.</li>
+            <li className="list-disc">A blockchain based Pokémon game.</li>
+            <li className="list-disc">Win the showdown to earn some NFTs.</li>
+            <li className="list-disc">Connect your wallet and enter the showdown.</li>
           </ul>
         </div>
       </div>
