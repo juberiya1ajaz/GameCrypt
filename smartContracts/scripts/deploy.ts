@@ -14,9 +14,9 @@ async function main() {
   
   console.log(`Deploying a smart contract...`);
 
-  const APPNAME = (await deploy('APPNAME', _metadataUri)).connect(admin);
+  const GameCrypt = (await deploy('GameCrypt', _metadataUri)).connect(admin);
 
-  console.log({ APPNAME: APPNAME.address });
+  console.log({ GameCrypt: GameCrypt.address });
 }
 
 main()

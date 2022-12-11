@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "APPNAME",
-  "sourceName": "contracts/APPNAME.sol",
+  "contractName": "GameCrypt",
+  "sourceName": "contracts/GameCrypt.sol",
   "abi": [
     {
       "inputs": [
@@ -483,7 +483,7 @@
       "name": "Showdowns",
       "outputs": [
         {
-          "internalType": "enum APPNAME.ShowdownStatus",
+          "internalType": "enum GameCrypt.ShowdownStatus",
           "name": "ShowdownStatus",
           "type": "uint8"
         },
@@ -519,7 +519,7 @@
         {
           "components": [
             {
-              "internalType": "enum APPNAME.ShowdownStatus",
+              "internalType": "enum GameCrypt.ShowdownStatus",
               "name": "ShowdownStatus",
               "type": "uint8"
             },
@@ -549,7 +549,7 @@
               "type": "address"
             }
           ],
-          "internalType": "struct APPNAME.Showdown",
+          "internalType": "struct GameCrypt.Showdown",
           "name": "",
           "type": "tuple"
         }
@@ -630,7 +630,7 @@
         {
           "components": [
             {
-              "internalType": "enum APPNAME.ShowdownStatus",
+              "internalType": "enum GameCrypt.ShowdownStatus",
               "name": "ShowdownStatus",
               "type": "uint8"
             },
@@ -660,7 +660,7 @@
               "type": "address"
             }
           ],
-          "internalType": "struct APPNAME.Showdown[]",
+          "internalType": "struct GameCrypt.Showdown[]",
           "name": "",
           "type": "tuple[]"
         }
@@ -695,7 +695,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct APPNAME.GameToken[]",
+          "internalType": "struct GameCrypt.GameToken[]",
           "name": "",
           "type": "tuple[]"
         }
@@ -735,7 +735,7 @@
               "type": "bool"
             }
           ],
-          "internalType": "struct APPNAME.Player[]",
+          "internalType": "struct GameCrypt.Player[]",
           "name": "",
           "type": "tuple[]"
         }
@@ -756,7 +756,7 @@
         {
           "components": [
             {
-              "internalType": "enum APPNAME.ShowdownStatus",
+              "internalType": "enum GameCrypt.ShowdownStatus",
               "name": "ShowdownStatus",
               "type": "uint8"
             },
@@ -786,7 +786,7 @@
               "type": "address"
             }
           ],
-          "internalType": "struct APPNAME.Showdown",
+          "internalType": "struct GameCrypt.Showdown",
           "name": "",
           "type": "tuple"
         }
@@ -856,7 +856,7 @@
               "type": "bool"
             }
           ],
-          "internalType": "struct APPNAME.Player",
+          "internalType": "struct GameCrypt.Player",
           "name": "",
           "type": "tuple"
         }
@@ -897,7 +897,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct APPNAME.GameToken",
+          "internalType": "struct GameCrypt.GameToken",
           "name": "",
           "type": "tuple"
         }
@@ -1012,7 +1012,7 @@
         {
           "components": [
             {
-              "internalType": "enum APPNAME.ShowdownStatus",
+              "internalType": "enum GameCrypt.ShowdownStatus",
               "name": "ShowdownStatus",
               "type": "uint8"
             },
@@ -1042,7 +1042,7 @@
               "type": "address"
             }
           ],
-          "internalType": "struct APPNAME.Showdown",
+          "internalType": "struct GameCrypt.Showdown",
           "name": "",
           "type": "tuple"
         }

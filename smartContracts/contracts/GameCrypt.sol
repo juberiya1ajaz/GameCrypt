@@ -6,11 +6,11 @@ import '@openzeppelin/contracts/token/ERC1155/ERC1155.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol';
 
-/// @title APPNAME
-/// @notice This contract handles the token management and Showdown logic for the APPNAME game
+/// @title GameCrypt
+/// @notice This contract handles the token management and Showdown logic for the GameCrypt game
 /// @notice Version 1.0.0
 
-contract APPNAME is ERC1155, Ownable, ERC1155Supply {
+contract GameCrypt is ERC1155, Ownable, ERC1155Supply {
   string public baseURI; // baseURI where token metadata is stored
   uint256 public totalSupply; // Total number of tokens minted
   uint256 public constant DEVIL = 0;
@@ -24,12 +24,11 @@ contract APPNAME is ERC1155, Ownable, ERC1155Supply {
 
   enum ShowdownStatus{ PENDING, STARTED, ENDED }
 
-  /// @dev GameToken struct to store player token info
   struct GameToken {
-    string name; /// @param name Showdown card name; set by player
-    uint256 id; /// @param id Showdown card token id; will be randomly generated
-    uint256 attackStrength; /// @param attackStrength Showdown card attack; generated randomly
-    uint256 defenseStrength; /// @param defenseStrength Showdown card defense; generated randomly
+    string name;
+    uint256 id;
+    uint256 attackStrength;
+    uint256 defenseStrength;
   }
 
   /// @dev Player struct to store player info
