@@ -1,10 +1,10 @@
-# APP NAME
+# CRYPTOAD
 
 ## 💡 Inspiration
 
 ## 💻 What it does
 
-Our web app **APP NAME** is built with the following features:
+Our web app **CRYPTOAD** is built with the following features:
 
 ## ⚙️ How we built it
 
@@ -26,8 +26,12 @@ We are deploying our smart contracts on **Hedera's testnet**. Hedera is a decent
 - We are proud of the fact that we were able to complete the project in the given time.
 
 ## 📖 What we learned
+- Gamification.
+- Collaboration with other developers.
+- Problems faced by Gamers.
+- Using Hedera
 
-## 🚀 What's next for APP NAME
+## 🚀 What's next for CRYPTOAD
 
 - Building a mobile app.
 - Deploying the web app.
